@@ -10,25 +10,27 @@
 #https://dev.to/techparida/how-to-deploy-a-flask-app-on-heroku-heb
 #https://www.youtube.com/watch?v=BP3D03CYFHA
 
-from flask import Flask, jsonify, request, render_template
+from flask import Flask
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
+
+from utils.db import db
+from routes.User_routes import user_routes
 
 app = Flask(__name__)
 CORS(app)
 
-# <string:user>
-@app.route('/proto/<int:user>', methods=['GET'])
-def proto(user):
-	print(user)
-	return jsonify({
-        "nombre" :"sddf"
-        })
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://ull723k51nkuwjps:WJIl1nNcF0gvMvRAQbf5@b84ertg3lptxeayohgqa-mysql.services.clever-cloud.com/b84ertg3lptxeayohgqa'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-@app.route('/enviar', methods=['POST'])
-def enviar():
-	msg = request.json
-	print(msg)
-	return "Recibido"
+SQLAlchemy(app)
+Marshmallow(app)
+
+app.register_blueprint(user_routes)
+
+with app.app_context():
+	db.create_all()
 
 if __name__ == '__main__':
 	app.run(debug=True, host="localhost", port=7000)
