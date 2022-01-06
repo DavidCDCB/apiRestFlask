@@ -29,12 +29,18 @@ def get_users():
 @user_routes.route('/api/user/<int:id>', methods=['GET'])
 def get_user(id):
 	user = User.query.get(id)
+	if(user is None):
+		return jsonify({'message': 'User not found'}), 404
+
 	user_schema = User_schema()
 	return user_schema.jsonify(user)
 
 @user_routes.route('/api/user/<int:id>', methods=['PUT'])
 def update_user(id):
 	user = User.query.get(id)
+	if(user is None):
+		return jsonify({'message': 'User not found'}), 404
+
 	request_body = request.json
 	user.nombre = request_body['nombre']
 	user.apellido = request_body['apellido']
@@ -46,6 +52,9 @@ def update_user(id):
 @user_routes.route('/api/user/<int:id>', methods=['DELETE'])
 def delete_user(id):
 	user = User.query.get(id)
+	if(user is None):
+		return jsonify({'message': 'User not found'}), 404
+		
 	db.session.delete(user)
 	db.session.commit()
 	user_schema = User_schema()

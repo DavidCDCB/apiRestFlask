@@ -3,6 +3,8 @@
 #https://stackoverflow.com/questions/20646822/how-to-serve-static-files-in-flask
 #python3 -m http.server 5500 --bind 192.168.1.104
 
+#https://codigofacilito.com/articulos/deploy-flask-heroku
+
 #source venv/bin/activate
 #pip3 freeze > requirements.txt
 
@@ -12,20 +14,14 @@
 
 from flask import Flask
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
 
-from utils.db import db
+from utils.db import db, database_config
 from routes.User_routes import user_routes
 
 app = Flask(__name__)
 CORS(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://ull723k51nkuwjps:WJIl1nNcF0gvMvRAQbf5@b84ertg3lptxeayohgqa-mysql.services.clever-cloud.com/b84ertg3lptxeayohgqa'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-SQLAlchemy(app)
-Marshmallow(app)
+database_config(app)
 
 app.register_blueprint(user_routes)
 
