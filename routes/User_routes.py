@@ -1,4 +1,6 @@
 from flask import Blueprint, jsonify, request
+import json
+import requests
 
 from models.User import User
 from utils.db import db
@@ -59,3 +61,18 @@ def delete_user(id):
 	db.session.commit()
 	user_schema = User_schema()
 	return user_schema.jsonify(user)
+
+
+@user_routes.route('/covidData', methods=['GET'])
+def get_data():
+	response = [[]]
+	response[0].append(['Fecha'])
+	response[0].append(['Cantidad'])
+	sourceDb ='https://datacovidcaldas.firebaseio.com/muestras.json'
+	m=requests.get(sourceDb).json()
+
+	for dato in m.values():
+		response[0][0].append(dato['fecha'])
+		response[0][1].append(dato['cantidad'])
+
+	return jsonify(response)
