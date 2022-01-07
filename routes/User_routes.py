@@ -66,13 +66,13 @@ def delete_user(id):
 @user_routes.route('/covidData', methods=['GET'])
 def get_data():
 	response = [[]]
-	response[0].append(['Fecha'])
-	response[0].append(['Cantidad'])
+	response[0].append(['Fecha','Cantidad'])
+
 	sourceDb ='https://datacovidcaldas.firebaseio.com/muestras.json'
 	m=requests.get(sourceDb).json()
 
 	for dato in m.values():
-		response[0][0].append(dato['fecha'])
-		response[0][1].append(dato['cantidad'])
+		response[0].append([dato['fecha'],dato['cantidad']])
+
 
 	return jsonify(response)
