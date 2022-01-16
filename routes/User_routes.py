@@ -81,7 +81,7 @@ def api_gptj():
 	payload = {
         "context": request_body['texto'],
         "token_max_length": 100,
-        "temperature": 1,
+        "temperature": 0.8,
         "top_p": 0.9,
     }
 	response = requests.post("http://api.vicgalle.net:5000/generate", params=payload).json()
