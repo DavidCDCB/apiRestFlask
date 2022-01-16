@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 import json
 import requests
+from googletrans import Translator
 
 from models.User import User
 from utils.db import db
@@ -67,12 +68,14 @@ def delete_user(id):
 def get_data():
 	response = [[]]
 	response[0].append(['Fecha','Cantidad'])
-
 	sourceDb ='https://datacovidcaldas.firebaseio.com/muestras.json'
 	m=requests.get(sourceDb).json()
-
 	for dato in m.values():
 		response[0].append([dato['fecha'],dato['cantidad']])
-
-
 	return jsonify(response)
+
+@user_routes.route('/gptj', methods=['POST'])
+def api_gptj():
+	request_body = request.json
+	translator = Translator()
+	return jsonify(request_body)

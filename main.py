@@ -5,8 +5,13 @@
 
 #https://codigofacilito.com/articulos/deploy-flask-heroku
 
+#sudo pip3 install virtualenv
+#virtualenv venv
 #source venv/bin/activate
 #pip3 freeze > requirements.txt
+#deactivate
+
+#pip3 install flask flask_cors gunicorn flask-sqlalchemy flask-marshmallow marshmallow-sqlalchemy pymysql
 
 #https://www.youtube.com/watch?v=-1DmVCPB6H8
 #https://dev.to/techparida/how-to-deploy-a-flask-app-on-heroku-heb
