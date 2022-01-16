@@ -78,4 +78,12 @@ def get_data():
 def api_gptj():
 	request_body = request.json
 	translator = Translator()
-	return jsonify(request_body)
+	payload = {
+        "context": request_body['texto'],
+        "token_max_length": 100,
+        "temperature": 1,
+        "top_p": 0.9,
+    }
+	response = requests.post("http://api.vicgalle.net:5000/generate", params=payload).json()
+	output = translator.translate(response["text"], dest='es').text
+	return jsonify({'text': output})
