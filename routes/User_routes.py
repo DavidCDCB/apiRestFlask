@@ -78,8 +78,9 @@ def get_data():
 def api_gptj():
 	request_body = request.json
 	translator = Translator()
+	input_data = translator.translate(request_body['texto'], dest='en').text
 	payload = {
-        "context": request_body['texto'],
+        "context": input_data,
         "token_max_length": 100,
         "temperature": 0.8,
         "top_p": 0.9,
