@@ -87,3 +87,18 @@ def api_gptj():
 	response = requests.post("http://api.vicgalle.net:5000/generate", params=payload).json()
 	output = translator.translate(response["text"], dest='es').text
 	return jsonify({'text': output})
+
+
+@user_routes.route('/translateES', methods=['POST'])
+def t_es():
+	request_body = request.json
+	translator = Translator()
+	output = translator.translate(request_body['texto'], dest='es').text
+	return jsonify({'text': output})
+
+@user_routes.route('/translateEN', methods=['POST'])
+def t_en():
+	request_body = request.json
+	translator = Translator()
+	output = translator.translate(request_body['texto'], dest='en').text
+	return jsonify({'text': output})
