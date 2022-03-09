@@ -90,8 +90,6 @@ def api_gptj():
 	return jsonify({'text': output})
 
 
-
-
 @user_routes.route('/gptjneox', methods=['POST'])
 def api_gptjneox():
 	headers = {
@@ -107,7 +105,7 @@ def api_gptjneox():
 	"Referrer-Policy": "strict-origin-when-cross-origin"
 	}
 
-	url = "https://api.textsynth.com/v1/engines/gptj_6B/completions"
+	url = "https://api.textsynth.com/v1/engines/gptneox_20B/completions"
 
 	request_body = request.json
 	translator = Translator()
