@@ -111,7 +111,7 @@ def api_gptjneox():
 	translator = Translator()
 	input_t = translator.translate(request_body['texto'], dest='en').text
 
-	payload = json.dumps(json.loads('{"prompt":"'+input_t+'","temperature":1,"top_k":40,"top_p":0.9,"max_tokens":200,"stream":true,"stop":null}'))
+	payload = json.dumps(json.loads('{"prompt":"'+input_t+'","temperature":1,"top_k":40,"top_p":0.5,"max_tokens":200,"stream":true,"stop":null}'))
 
 	r = requests.post(url, headers=headers, data=payload)
 
